@@ -1,0 +1,6 @@
+Simple fake device tree for AOSP.
+
+This code enable a device named "hal9000".
+
+NOTE: the kernel is a fake one, this is a fake device
+used only to test the build process involved in the AOSP.
