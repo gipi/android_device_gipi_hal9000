@@ -1,362 +1,470 @@
 
-[1mproject build/[m
-[1mdiff --git a/core/definitions.mk b/core/definitions.mk[m
-[1mindex 9fe0a11..2750bed 100644[m
-[1m--- a/core/definitions.mk[m
-[1m+++ b/core/definitions.mk[m
-[36m@@ -1547,7 +1547,7 @@[m [mdefine transform-classes.jar-to-dex[m
- @echo "target Dex: $(PRIVATE_MODULE)"[m
- @mkdir -p $(dir $@)[m
- $(hide) $(DX) \[m
-[31m-    $(if $(findstring windows,$(HOST_OS)),,-JXms16M -JXmx2048M) \[m
-[32m+[m[32m    $(if $(findstring windows,$(HOST_OS)),,-JXms16M -JXmx1024M) \[m
-     --dex --output=$@ \[m
-     $(incremental_dex) \[m
-     $(if $(NO_OPTIMIZE_DX), \[m
+project build/
+diff --git a/core/definitions.mk b/core/definitions.mk
+index b661c7d..8f4b033 100644
+--- a/core/definitions.mk
++++ b/core/definitions.mk
+@@ -1551,7 +1551,7 @@ define transform-classes.jar-to-dex
+ @echo "target Dex: $(PRIVATE_MODULE)"
+ @mkdir -p $(dir $@)
+ $(hide) $(DX) \
+-    $(if $(findstring windows,$(HOST_OS)),,-JXms16M -JXmx2048M) \
++    $(if $(findstring windows,$(HOST_OS)),,-JXms16M -JXmx1024M) \
+     --dex --output=$@ \
+     $(incremental_dex) \
+     $(if $(NO_OPTIMIZE_DX), \
 
-[1mproject external/oprofile/[m
-[1mdiff --git a/common.mk b/common.mk[m
-[1mindex f5578b1..e45e16f 100644[m
-[1m--- a/common.mk[m
-[1m+++ b/common.mk[m
-[36m@@ -46,7 +46,7 @@[m [mcommon_host_cflags += -DMISSING_MREMAP[m
- common_host_ldlibs_libiconv := -liconv[m
- else[m
- ifeq ($(HOST_OS)-$(HOST_ARCH),linux-x86)[m
-[31m-HAVE_LIBBFD := true[m
-[32m+[m[32mHAVE_LIBBFD := false[m
- endif[m
- endif[m
- [m
+project external/oprofile/
+diff --git a/common.mk b/common.mk
+index f5578b1..e45e16f 100644
+--- a/common.mk
++++ b/common.mk
+@@ -46,7 +46,7 @@ common_host_cflags += -DMISSING_MREMAP
+ common_host_ldlibs_libiconv := -liconv
+ else
+ ifeq ($(HOST_OS)-$(HOST_ARCH),linux-x86)
+-HAVE_LIBBFD := true
++HAVE_LIBBFD := false
+ endif
+ endif
+ 
 
-[1mproject external/qemu/[m
-[1mdiff --git a/Makefile.common b/Makefile.common[m
-[1mindex f9d98af..0ce5a5f 100644[m
-[1m--- a/Makefile.common[m
-[1m+++ b/Makefile.common[m
-[36m@@ -143,15 +143,15 @@[m [m$(call end-emulator-library)[m
- #  1) For Windows: amd64-mingw32msvc-gcc doesn't work, see http://b/issue?id=5949152.[m
- #  2) For MacOSX: 64-bit libSDL*.a 1.2.x depends on NSQuickDrawView doesn't exist[m
- #  3) Standalone has --try-64[m
-[31m-ifeq ($(HOST_OS),linux)[m
-[31m-  ifneq ($(BUILD_STANDALONE_EMULATOR),true)[m
-[31m-    $(call start-emulator-library, emulator64-common)[m
-[31m-    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -m64[m
-[31m-    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)[m
-[31m-    $(call gen-hw-config-defs)[m
-[31m-    $(call end-emulator-library)[m
-[31m-  endif # BUILD_STANDALONE_EMULATOR == nil[m
-[31m-endif # HOST_OS == linux[m
-[32m+[m[32m#ifeq ($(HOST_OS),linux)[m
-[32m+[m[32m#  ifneq ($(BUILD_STANDALONE_EMULATOR),true)[m
-[32m+[m[32m#    $(call start-emulator-library, emulator64-common)[m
-[32m+[m[32m#    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -m64[m
-[32m+[m[32m#    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)[m
-[32m+[m[32m#    $(call gen-hw-config-defs)[m
-[32m+[m[32m#    $(call end-emulator-library)[m
-[32m+[m[32m#  endif # BUILD_STANDALONE_EMULATOR == nil[m
-[32m+[m[32m#endif # HOST_OS == linux[m
- [m
- ##############################################################################[m
- ##############################################################################[m
-[36m@@ -294,15 +294,15 @@[m [m$(call end-emulator-library)[m
- [m
- [m
- ## another for 64-bit, see note in emulator64-common[m
-[31m-ifeq ($(HOST_OS),linux)[m
-[31m-  ifneq ($(BUILD_STANDALONE_EMULATOR),true)[m
-[31m-    $(call start-emulator-library, emulator64-libui)[m
-[31m-    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -m64[m
-[31m-    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)[m
-[31m-    $(call gen-hw-config-defs)[m
-[31m-    $(call end-emulator-library)[m
-[31m-  endif # BUILD_STANDALONE_EMULATOR == nil[m
-[31m-endif # HOST_OS == linux[m
-[32m+[m[32m#ifeq ($(HOST_OS),linux)[m
-[32m+[m[32m#  ifneq ($(BUILD_STANDALONE_EMULATOR),true)[m
-[32m+[m[32m#    $(call start-emulator-library, emulator64-libui)[m
-[32m+[m[32m#    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -m64[m
-[32m+[m[32m#    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)[m
-[32m+[m[32m#    $(call gen-hw-config-defs)[m
-[32m+[m[32m#    $(call end-emulator-library)[m
-[32m+[m[32m#  endif # BUILD_STANDALONE_EMULATOR == nil[m
-[32m+[m[32m#endif # HOST_OS == linux[m
- [m
- [m
- ##############################################################################[m
-[36m@@ -619,27 +619,27 @@[m [m$(call end-emulator-library)[m
- [m
- [m
- ## another for 64-bit, see note in emulator64-common[m
-[31m-ifeq ($(HOST_OS),linux)[m
-[31m-  ifneq ($(BUILD_STANDALONE_EMULATOR),true)[m
-[31m-    $(call start-emulator-library, emulator64-libqemu)[m
-[31m-    # gdbstub-xml.c contains C-compilable arrays corresponding to the content[m
-[31m-    # of $(LOCAL_PATH)/gdb-xml/, and is generated with the 'feature_to_c.sh' script.[m
-[31m-    #[m
-[31m-    intermediates = $(call intermediates-dir-for,STATIC_LIBRARIES,$(LOCAL_MODULE),true)[m
-[31m-    QEMU_GDBSTUB_XML_C = $(intermediates)/gdbstub-xml.c[m
-[31m-    $(QEMU_GDBSTUB_XML_C): PRIVATE_PATH := $(LOCAL_PATH)[m
-[31m-    $(QEMU_GDBSTUB_XML_C): PRIVATE_SOURCES := $(TARGET_XML_SOURCES)[m
-[31m-    $(QEMU_GDBSTUB_XML_C): PRIVATE_CUSTOM_TOOL = $(PRIVATE_PATH)/feature_to_c.sh $@ $(QEMU_TARGET_XML_SOURCES)[m
-[31m-    $(QEMU_GDBSTUB_XML_C): $(QEMU_TARGET_XML_SOURCES) $(LOCAL_PATH)/feature_to_c.sh[m
-[31m-	$(hide) rm -f $@[m
-[31m-	$(transform-generated-source)[m
-[31m-    LOCAL_GENERATED_SOURCES += $(QEMU_GDBSTUB_XML_C)[m
-[31m-    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -I$(intermediates) -m64[m
-[31m-    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)[m
-[31m-    $(call gen-hw-config-defs)[m
-[31m-    $(call end-emulator-library)[m
-[31m-  endif # BUILD_STANDALONE_EMULATOR == nil[m
-[31m-endif # HOST_OS == linux[m
-[32m+[m[32m#ifeq ($(HOST_OS),linux)[m
-[32m+[m[32m#  ifneq ($(BUILD_STANDALONE_EMULATOR),true)[m
-[32m+[m[32m#    $(call start-emulator-library, emulator64-libqemu)[m
-[32m+[m[32m#    # gdbstub-xml.c contains C-compilable arrays corresponding to the content[m
-[32m+[m[32m#    # of $(LOCAL_PATH)/gdb-xml/, and is generated with the 'feature_to_c.sh' script.[m
-[32m+[m[32m#    #[m
-[32m+[m[32m#    intermediates = $(call intermediates-dir-for,STATIC_LIBRARIES,$(LOCAL_MODULE),true)[m
-[32m+[m[32m#    QEMU_GDBSTUB_XML_C = $(intermediates)/gdbstub-xml.c[m
-[32m+[m[32m#    $(QEMU_GDBSTUB_XML_C): PRIVATE_PATH := $(LOCAL_PATH)[m
-[32m+[m[32m#    $(QEMU_GDBSTUB_XML_C): PRIVATE_SOURCES := $(TARGET_XML_SOURCES)[m
-[32m+[m[32m#    $(QEMU_GDBSTUB_XML_C): PRIVATE_CUSTOM_TOOL = $(PRIVATE_PATH)/feature_to_c.sh $@ $(QEMU_TARGET_XML_SOURCES)[m
-[32m+[m[32m#    $(QEMU_GDBSTUB_XML_C): $(QEMU_TARGET_XML_SOURCES) $(LOCAL_PATH)/feature_to_c.sh[m
-[32m+[m[32m#	$(hide) rm -f $@[m
-[32m+[m[32m#	$(transform-generated-source)[m
-[32m+[m[32m#    LOCAL_GENERATED_SOURCES += $(QEMU_GDBSTUB_XML_C)[m
-[32m+[m[32m#    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -I$(intermediates) -m64[m
-[32m+[m[32m#    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)[m
-[32m+[m[32m#    $(call gen-hw-config-defs)[m
-[32m+[m[32m#    $(call end-emulator-library)[m
-[32m+[m[32m#  endif # BUILD_STANDALONE_EMULATOR == nil[m
-[32m+[m[32m#endif # HOST_OS == linux[m
- [m
- [m
- # Block sources, we must compile them with each executable because they[m
-[36m@@ -713,15 +713,15 @@[m [m$(call end-emulator-library)[m
- [m
- [m
- ## another for 64-bit, see note in emulator64-common[m
-[31m-ifeq ($(HOST_OS),linux)[m
-[31m-  ifneq ($(BUILD_STANDALONE_EMULATOR),true)[m
-[31m-    $(call start-emulator-library, emulator64-libelff)[m
-[31m-    LOCAL_CPP_EXTENSION := .cc[m
-[31m-    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -m64[m
-[31m-    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)[m
-[31m-    $(call end-emulator-library)[m
-[31m-  endif # BUILD_STANDALONE_EMULATOR == nil[m
-[31m-endif # HOST_OS == linux[m
-[32m+[m[32m#ifeq ($(HOST_OS),linux)[m
-[32m+[m[32m#  ifneq ($(BUILD_STANDALONE_EMULATOR),true)[m
-[32m+[m[32m#    $(call start-emulator-library, emulator64-libelff)[m
-[32m+[m[32m#    LOCAL_CPP_EXTENSION := .cc[m
-[32m+[m[32m#    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -m64[m
-[32m+[m[32m#    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)[m
-[32m+[m[32m#    $(call end-emulator-library)[m
-[32m+[m[32m#  endif # BUILD_STANDALONE_EMULATOR == nil[m
-[32m+[m[32m#endif # HOST_OS == linux[m
- [m
- [m
- ##############################################################################[m
-[1mdiff --git a/Makefile.target b/Makefile.target[m
-[1mindex 1961acf..582c72d 100644[m
-[1m--- a/Makefile.target[m
-[1m+++ b/Makefile.target[m
-[36m@@ -246,16 +246,16 @@[m [m$(call gen-hx-header,qemu-options.hx,qemu-options.def,os-posix.c os-win32.c)[m
- $(call end-emulator-library)[m
- [m
- ## another for 64-bit, see note in file Makefile.common emulator64-common[m
-[31m-ifeq ($(HOST_OS),linux)[m
-[31m-  ifneq ($(BUILD_STANDALONE_EMULATOR),true)[m
-[31m-    $(call start-emulator-library, emulator64-target-$(EMULATOR_TARGET_CPU))[m
-[31m-    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -m64[m
-[31m-    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)[m
-[31m-    $(call gen-hw-config-defs)[m
-[31m-    $(call gen-hx-header,qemu-options.hx,qemu-options.def,os-posix.c os-win32.c)[m
-[31m-    $(call end-emulator-library)[m
-[31m-  endif # BUILD_STANDALONE_EMULATOR == nil[m
-[31m-endif # HOST_OS == linux[m
-[32m+[m[32m#ifeq ($(HOST_OS),linux)[m
-[32m+[m[32m#  ifneq ($(BUILD_STANDALONE_EMULATOR),true)[m
-[32m+[m[32m#    $(call start-emulator-library, emulator64-target-$(EMULATOR_TARGET_CPU))[m
-[32m+[m[32m#    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -m64[m
-[32m+[m[32m#    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)[m
-[32m+[m[32m#    $(call gen-hw-config-defs)[m
-[32m+[m[32m#    $(call gen-hx-header,qemu-options.hx,qemu-options.def,os-posix.c os-win32.c)[m
-[32m+[m[32m#    $(call end-emulator-library)[m
-[32m+[m[32m#  endif # BUILD_STANDALONE_EMULATOR == nil[m
-[32m+[m[32m#endif # HOST_OS == linux[m
- [m
- [m
- [m
-[36m@@ -433,22 +433,22 @@[m [m$(call end-emulator-program)[m
- [m
- [m
- ## another for 64-bit, see note in file Makefile.common emulator64-common[m
-[31m-ifeq ($(HOST_OS),linux)[m
-[31m-  ifneq ($(BUILD_STANDALONE_EMULATOR),true)[m
-[31m-    $(call start-emulator-program, emulator64-$(EMULATOR_TARGET_ARCH))[m
-[31m-    LOCAL_STATIC_LIBRARIES += \[m
-[31m-        emulator64-libui \[m
-[31m-        emulator64-libqemu \[m
-[31m-        emulator64-target-$(EMULATOR_TARGET_CPU) \[m
-[31m-        emulator64-libelff \[m
-[31m-        emulator64-common \[m
-[31m-        $(SDL_STATIC_LIBRARIES_64)[m
-[31m-    LOCAL_LDLIBS += $(common_LOCAL_LDLIBS) -m64[m
-[31m-    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -m64[m
-[31m-    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)[m
-[31m-    $(call gen-hx-header,qemu-monitor.hx,qemu-monitor.h,monitor.c)[m
-[31m-    $(call gen-hx-header,qemu-options.hx,qemu-options.def,vl-android.c qemu-options.h)[m
-[31m-    $(call gen-hw-config-defs)[m
-[31m-    $(call end-emulator-program)[m
-[31m-  endif # BUILD_STANDALONE_EMULATOR == nil[m
-[31m-endif # HOST_OS == linux[m
-[32m+[m[32m#ifeq ($(HOST_OS),linux)[m
-[32m+[m[32m#  ifneq ($(BUILD_STANDALONE_EMULATOR),true)[m
-[32m+[m[32m#    $(call start-emulator-program, emulator64-$(EMULATOR_TARGET_ARCH))[m
-[32m+[m[32m#    LOCAL_STATIC_LIBRARIES += \[m
-[32m+[m[32m#        emulator64-libui \[m
-[32m+[m[32m#        emulator64-libqemu \[m
-[32m+[m[32m#        emulator64-target-$(EMULATOR_TARGET_CPU) \[m
-[32m+[m[32m#        emulator64-libelff \[m
-[32m+[m[32m#        emulator64-common \[m
-[32m+[m[32m#        $(SDL_STATIC_LIBRARIES_64)[m
-[32m+[m[32m#    LOCAL_LDLIBS += $(common_LOCAL_LDLIBS) -m64[m
-[32m+[m[32m#    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -m64[m
-[32m+[m[32m#    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)[m
-[32m+[m[32m#    $(call gen-hx-header,qemu-monitor.hx,qemu-monitor.h,monitor.c)[m
-[32m+[m[32m#    $(call gen-hx-header,qemu-options.hx,qemu-options.def,vl-android.c qemu-options.h)[m
-[32m+[m[32m#    $(call gen-hw-config-defs)[m
-[32m+[m[32m#    $(call end-emulator-program)[m
-[32m+[m[32m#  endif # BUILD_STANDALONE_EMULATOR == nil[m
-[32m+[m[32m#endif # HOST_OS == linux[m
+project external/qemu/
+diff --git a/Makefile.common b/Makefile.common
+index f9d98af..0ce5a5f 100644
+--- a/Makefile.common
++++ b/Makefile.common
+@@ -143,15 +143,15 @@ $(call end-emulator-library)
+ #  1) For Windows: amd64-mingw32msvc-gcc doesn't work, see http://b/issue?id=5949152.
+ #  2) For MacOSX: 64-bit libSDL*.a 1.2.x depends on NSQuickDrawView doesn't exist
+ #  3) Standalone has --try-64
+-ifeq ($(HOST_OS),linux)
+-  ifneq ($(BUILD_STANDALONE_EMULATOR),true)
+-    $(call start-emulator-library, emulator64-common)
+-    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -m64
+-    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)
+-    $(call gen-hw-config-defs)
+-    $(call end-emulator-library)
+-  endif # BUILD_STANDALONE_EMULATOR == nil
+-endif # HOST_OS == linux
++#ifeq ($(HOST_OS),linux)
++#  ifneq ($(BUILD_STANDALONE_EMULATOR),true)
++#    $(call start-emulator-library, emulator64-common)
++#    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -m64
++#    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)
++#    $(call gen-hw-config-defs)
++#    $(call end-emulator-library)
++#  endif # BUILD_STANDALONE_EMULATOR == nil
++#endif # HOST_OS == linux
+ 
+ ##############################################################################
+ ##############################################################################
+@@ -294,15 +294,15 @@ $(call end-emulator-library)
+ 
+ 
+ ## another for 64-bit, see note in emulator64-common
+-ifeq ($(HOST_OS),linux)
+-  ifneq ($(BUILD_STANDALONE_EMULATOR),true)
+-    $(call start-emulator-library, emulator64-libui)
+-    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -m64
+-    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)
+-    $(call gen-hw-config-defs)
+-    $(call end-emulator-library)
+-  endif # BUILD_STANDALONE_EMULATOR == nil
+-endif # HOST_OS == linux
++#ifeq ($(HOST_OS),linux)
++#  ifneq ($(BUILD_STANDALONE_EMULATOR),true)
++#    $(call start-emulator-library, emulator64-libui)
++#    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -m64
++#    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)
++#    $(call gen-hw-config-defs)
++#    $(call end-emulator-library)
++#  endif # BUILD_STANDALONE_EMULATOR == nil
++#endif # HOST_OS == linux
+ 
+ 
+ ##############################################################################
+@@ -619,27 +619,27 @@ $(call end-emulator-library)
+ 
+ 
+ ## another for 64-bit, see note in emulator64-common
+-ifeq ($(HOST_OS),linux)
+-  ifneq ($(BUILD_STANDALONE_EMULATOR),true)
+-    $(call start-emulator-library, emulator64-libqemu)
+-    # gdbstub-xml.c contains C-compilable arrays corresponding to the content
+-    # of $(LOCAL_PATH)/gdb-xml/, and is generated with the 'feature_to_c.sh' script.
+-    #
+-    intermediates = $(call intermediates-dir-for,STATIC_LIBRARIES,$(LOCAL_MODULE),true)
+-    QEMU_GDBSTUB_XML_C = $(intermediates)/gdbstub-xml.c
+-    $(QEMU_GDBSTUB_XML_C): PRIVATE_PATH := $(LOCAL_PATH)
+-    $(QEMU_GDBSTUB_XML_C): PRIVATE_SOURCES := $(TARGET_XML_SOURCES)
+-    $(QEMU_GDBSTUB_XML_C): PRIVATE_CUSTOM_TOOL = $(PRIVATE_PATH)/feature_to_c.sh $@ $(QEMU_TARGET_XML_SOURCES)
+-    $(QEMU_GDBSTUB_XML_C): $(QEMU_TARGET_XML_SOURCES) $(LOCAL_PATH)/feature_to_c.sh
+- $(hide) rm -f $@
+-	$(transform-generated-source)
+-    LOCAL_GENERATED_SOURCES += $(QEMU_GDBSTUB_XML_C)
+-    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -I$(intermediates) -m64
+-    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)
+-    $(call gen-hw-config-defs)
+-    $(call end-emulator-library)
+-  endif # BUILD_STANDALONE_EMULATOR == nil
+-endif # HOST_OS == linux
++#ifeq ($(HOST_OS),linux)
++#  ifneq ($(BUILD_STANDALONE_EMULATOR),true)
++#    $(call start-emulator-library, emulator64-libqemu)
++#    # gdbstub-xml.c contains C-compilable arrays corresponding to the content
++#    # of $(LOCAL_PATH)/gdb-xml/, and is generated with the 'feature_to_c.sh' script.
++#    #
++#    intermediates = $(call intermediates-dir-for,STATIC_LIBRARIES,$(LOCAL_MODULE),true)
++#    QEMU_GDBSTUB_XML_C = $(intermediates)/gdbstub-xml.c
++#    $(QEMU_GDBSTUB_XML_C): PRIVATE_PATH := $(LOCAL_PATH)
++#    $(QEMU_GDBSTUB_XML_C): PRIVATE_SOURCES := $(TARGET_XML_SOURCES)
++#    $(QEMU_GDBSTUB_XML_C): PRIVATE_CUSTOM_TOOL = $(PRIVATE_PATH)/feature_to_c.sh $@ $(QEMU_TARGET_XML_SOURCES)
++#    $(QEMU_GDBSTUB_XML_C): $(QEMU_TARGET_XML_SOURCES) $(LOCAL_PATH)/feature_to_c.sh
++#	$(hide) rm -f $@
++#	$(transform-generated-source)
++#    LOCAL_GENERATED_SOURCES += $(QEMU_GDBSTUB_XML_C)
++#    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -I$(intermediates) -m64
++#    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)
++#    $(call gen-hw-config-defs)
++#    $(call end-emulator-library)
++#  endif # BUILD_STANDALONE_EMULATOR == nil
++#endif # HOST_OS == linux
+ 
+ 
+ # Block sources, we must compile them with each executable because they
+@@ -713,15 +713,15 @@ $(call end-emulator-library)
+ 
+ 
+ ## another for 64-bit, see note in emulator64-common
+-ifeq ($(HOST_OS),linux)
+-  ifneq ($(BUILD_STANDALONE_EMULATOR),true)
+-    $(call start-emulator-library, emulator64-libelff)
+-    LOCAL_CPP_EXTENSION := .cc
+-    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -m64
+-    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)
+-    $(call end-emulator-library)
+-  endif # BUILD_STANDALONE_EMULATOR == nil
+-endif # HOST_OS == linux
++#ifeq ($(HOST_OS),linux)
++#  ifneq ($(BUILD_STANDALONE_EMULATOR),true)
++#    $(call start-emulator-library, emulator64-libelff)
++#    LOCAL_CPP_EXTENSION := .cc
++#    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -m64
++#    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)
++#    $(call end-emulator-library)
++#  endif # BUILD_STANDALONE_EMULATOR == nil
++#endif # HOST_OS == linux
+ 
+ 
+ ##############################################################################
+diff --git a/Makefile.target b/Makefile.target
+index 1961acf..582c72d 100644
+--- a/Makefile.target
++++ b/Makefile.target
+@@ -246,16 +246,16 @@ $(call gen-hx-header,qemu-options.hx,qemu-options.def,os-posix.c os-win32.c)
+ $(call end-emulator-library)
+ 
+ ## another for 64-bit, see note in file Makefile.common emulator64-common
+-ifeq ($(HOST_OS),linux)
+-  ifneq ($(BUILD_STANDALONE_EMULATOR),true)
+-    $(call start-emulator-library, emulator64-target-$(EMULATOR_TARGET_CPU))
+-    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -m64
+-    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)
+-    $(call gen-hw-config-defs)
+-    $(call gen-hx-header,qemu-options.hx,qemu-options.def,os-posix.c os-win32.c)
+-    $(call end-emulator-library)
+-  endif # BUILD_STANDALONE_EMULATOR == nil
+-endif # HOST_OS == linux
++#ifeq ($(HOST_OS),linux)
++#  ifneq ($(BUILD_STANDALONE_EMULATOR),true)
++#    $(call start-emulator-library, emulator64-target-$(EMULATOR_TARGET_CPU))
++#    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -m64
++#    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)
++#    $(call gen-hw-config-defs)
++#    $(call gen-hx-header,qemu-options.hx,qemu-options.def,os-posix.c os-win32.c)
++#    $(call end-emulator-library)
++#  endif # BUILD_STANDALONE_EMULATOR == nil
++#endif # HOST_OS == linux
+ 
+ 
+ 
+@@ -433,22 +433,22 @@ $(call end-emulator-program)
+ 
+ 
+ ## another for 64-bit, see note in file Makefile.common emulator64-common
+-ifeq ($(HOST_OS),linux)
+-  ifneq ($(BUILD_STANDALONE_EMULATOR),true)
+-    $(call start-emulator-program, emulator64-$(EMULATOR_TARGET_ARCH))
+-    LOCAL_STATIC_LIBRARIES += \
+-        emulator64-libui \
+-        emulator64-libqemu \
+-        emulator64-target-$(EMULATOR_TARGET_CPU) \
+-        emulator64-libelff \
+-        emulator64-common \
+-        $(SDL_STATIC_LIBRARIES_64)
+-    LOCAL_LDLIBS += $(common_LOCAL_LDLIBS) -m64
+-    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -m64
+-    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)
+-    $(call gen-hx-header,qemu-monitor.hx,qemu-monitor.h,monitor.c)
+-    $(call gen-hx-header,qemu-options.hx,qemu-options.def,vl-android.c qemu-options.h)
+-    $(call gen-hw-config-defs)
+-    $(call end-emulator-program)
+-  endif # BUILD_STANDALONE_EMULATOR == nil
+-endif # HOST_OS == linux
++#ifeq ($(HOST_OS),linux)
++#  ifneq ($(BUILD_STANDALONE_EMULATOR),true)
++#    $(call start-emulator-program, emulator64-$(EMULATOR_TARGET_ARCH))
++#    LOCAL_STATIC_LIBRARIES += \
++#        emulator64-libui \
++#        emulator64-libqemu \
++#        emulator64-target-$(EMULATOR_TARGET_CPU) \
++#        emulator64-libelff \
++#        emulator64-common \
++#        $(SDL_STATIC_LIBRARIES_64)
++#    LOCAL_LDLIBS += $(common_LOCAL_LDLIBS) -m64
++#    LOCAL_CFLAGS += $(common_LOCAL_CFLAGS) -m64
++#    LOCAL_SRC_FILES += $(common_LOCAL_SRC_FILES)
++#    $(call gen-hx-header,qemu-monitor.hx,qemu-monitor.h,monitor.c)
++#    $(call gen-hx-header,qemu-options.hx,qemu-options.def,vl-android.c qemu-options.h)
++#    $(call gen-hw-config-defs)
++#    $(call end-emulator-program)
++#  endif # BUILD_STANDALONE_EMULATOR == nil
++#endif # HOST_OS == linux
 
-[1mproject frameworks/native/[m
-[1mdiff --git a/libs/utils/Android.mk b/libs/utils/Android.mk[m
-[1mindex ddfb83e..e0e4f67 100644[m
-[1m--- a/libs/utils/Android.mk[m
-[1m+++ b/libs/utils/Android.mk[m
-[36m@@ -81,18 +81,18 @@[m [minclude $(BUILD_HOST_STATIC_LIBRARY)[m
- [m
- # For the host, 64-bit[m
- # =====================================================[m
-[31m-include $(CLEAR_VARS)[m
-[31m-LOCAL_SRC_FILES:= $(commonSources)[m
-[31m-ifeq ($(HOST_OS), linux)[m
-[31m-LOCAL_SRC_FILES += Looper.cpp[m
-[31m-endif[m
-[31m-LOCAL_MODULE:= lib64utils[m
-[31m-LOCAL_STATIC_LIBRARIES := libz[m
-[31m-LOCAL_C_INCLUDES := \[m
-[31m-	external/zlib[m
-[31m-LOCAL_CFLAGS += $(host_commonCflags) -m64[m
-[31m-LOCAL_LDLIBS += $(host_commonLdlibs)[m
-[31m-include $(BUILD_HOST_STATIC_LIBRARY)[m
-[32m+[m[32m#include $(CLEAR_VARS)[m
-[32m+[m[32m#LOCAL_SRC_FILES:= $(commonSources)[m
-[32m+[m[32m#ifeq ($(HOST_OS), linux)[m
-[32m+[m[32m#LOCAL_SRC_FILES += Looper.cpp[m
-[32m+[m[32m#endif[m
-[32m+[m[32m#LOCAL_MODULE:= lib64utils[m
-[32m+[m[32m#LOCAL_STATIC_LIBRARIES := libz[m
-[32m+[m[32m#LOCAL_C_INCLUDES := \[m
-[32m+[m[32m#	external/zlib[m
-[32m+[m[32m#LOCAL_CFLAGS += $(host_commonCflags) -m64[m
-[32m+[m[32m#LOCAL_LDLIBS += $(host_commonLdlibs)[m
-[32m+[m[32m#include $(BUILD_HOST_STATIC_LIBRARY)[m
- [m
- [m
- # For the device[m
+project external/wpa_supplicant_8/
+diff --git a/src/utils/wpa_debug.c b/src/utils/wpa_debug.c
+index a8b9106..4191e84 100644
+--- a/src/utils/wpa_debug.c
++++ b/src/utils/wpa_debug.c
+@@ -17,7 +17,7 @@ static int wpa_debug_syslog = 0;
+ #endif /* CONFIG_DEBUG_SYSLOG */
+ 
+ 
+-int wpa_debug_level = MSG_INFO;
++int wpa_debug_level = MSG_DEBUG;
+ int wpa_debug_show_keys = 0;
+ int wpa_debug_timestamp = 0;
+ 
+
+project frameworks/native/
+diff --git a/libs/utils/Android.mk b/libs/utils/Android.mk
+index a59d62c..615c49f 100644
+--- a/libs/utils/Android.mk
++++ b/libs/utils/Android.mk
+@@ -81,24 +81,39 @@ include $(BUILD_HOST_STATIC_LIBRARY)
+ 
+ # For the host, 64-bit
+ # =====================================================
+-include $(CLEAR_VARS)
+-LOCAL_SRC_FILES:= $(commonSources)
+-ifeq ($(HOST_OS), linux)
+-LOCAL_SRC_FILES += Looper.cpp
+-endif
+-LOCAL_MODULE:= lib64utils
+-LOCAL_STATIC_LIBRARIES := libz
+-LOCAL_C_INCLUDES := \
+-	external/zlib
+-LOCAL_CFLAGS += $(host_commonCflags) -m64
+-LOCAL_LDLIBS += $(host_commonLdlibs)
+-
+-ifeq ($(HOST_OS),windows)
+-LOCAL_CC = /usr/bin/amd64-mingw32msvc-gcc
+-LOCAL_CXX = /usr/bin/amd64-mingw32msvc-g++
+-endif
+-
+-include $(BUILD_HOST_STATIC_LIBRARY)
++#<<<<<<< Updated upstream
++#include $(CLEAR_VARS)
++#LOCAL_SRC_FILES:= $(commonSources)
++#ifeq ($(HOST_OS), linux)
++#LOCAL_SRC_FILES += Looper.cpp
++#endif
++#LOCAL_MODULE:= lib64utils
++#LOCAL_STATIC_LIBRARIES := libz
++#LOCAL_C_INCLUDES := \
++#	external/zlib
++#LOCAL_CFLAGS += $(host_commonCflags) -m64
++#LOCAL_LDLIBS += $(host_commonLdlibs)
++
++#ifeq ($(HOST_OS),windows)
++#LOCAL_CC = /usr/bin/amd64-mingw32msvc-gcc
++#LOCAL_CXX = /usr/bin/amd64-mingw32msvc-g++
++#endif
++
++#include $(BUILD_HOST_STATIC_LIBRARY)
++#=======
++#include $(CLEAR_VARS)
++#LOCAL_SRC_FILES:= $(commonSources)
++#ifeq ($(HOST_OS), linux)
++#LOCAL_SRC_FILES += Looper.cpp
++#endif
++#LOCAL_MODULE:= lib64utils
++#LOCAL_STATIC_LIBRARIES := libz
++#LOCAL_C_INCLUDES := \
++#	external/zlib
++#LOCAL_CFLAGS += $(host_commonCflags) -m64
++#LOCAL_LDLIBS += $(host_commonLdlibs)
++#include $(BUILD_HOST_STATIC_LIBRARY)
++#>>>>>>> Stashed changes
+ 
+ 
+ # For the device
 
 [1mproject prebuilts/tools/[m
-[1mdiff --git a/gcc-sdk/gcc b/gcc-sdk/gcc[m
-[1mindex eac1c47..f303645 100755[m
-[1m--- a/gcc-sdk/gcc[m
-[1m+++ b/gcc-sdk/gcc[m
-[36m@@ -20,21 +20,21 @@[m [msuffix_m64=${options##* -m64 }    # suffix after the last -m64[m
- len_m32=${#suffix_m32}            # length of suffix after the last -m32[m
- len_m64=${#suffix_m64}            # length of suffix after the last -m64[m
- [m
-[31m-if [ $len_m32 -ge $len_m64 ] ; then[m
-[31m-  # Choose 64-bit if -m64 only, -m64 appears after -m32, or neither exist (-eq)[m
-[31m-  MY_TOOL=`dirname $0`/${PREFIX64}-${PROGNAME}[m
-[31m-  # Make sure host is running 64-bit OS.[m
-[31m-  # Note that "uname -m" only show host CPU is capable of.  Use the following technique[m
-[31m-  # from ndk/build/core/ndk-common.sh instead[m
-[31m-  file -L "$SHELL" | grep -q "x86[_-]64"[m
-[31m-  if [ $? != 0 ]; then[m
-[31m-    # $SHELL is not a 64-bit executable, so assume our userland is too.[m
-[31m-    echo "ERROR: $MY_TOOL only run on 64-bit linux"[m
-[31m-    exit 1[m
-[31m-  fi[m
-[31m-else[m
-[32m+[m[32m#if [ $len_m32 -ge $len_m64 ] ; then[m
-[32m+[m[32m#  # Choose 64-bit if -m64 only, -m64 appears after -m32, or neither exist (-eq)[m
-[32m+[m[32m#  MY_TOOL=`dirname $0`/${PREFIX64}-${PROGNAME}[m
-[32m+[m[32m#  # Make sure host is running 64-bit OS.[m
-[32m+[m[32m#  # Note that "uname -m" only show host CPU is capable of.  Use the following technique[m
-[32m+[m[32m#  # from ndk/build/core/ndk-common.sh instead[m
-[32m+[m[32m#  file -L "$SHELL" | grep -q "x86[_-]64"[m
-[32m+[m[32m#  if [ $? != 0 ]; then[m
-[32m+[m[32m#    # $SHELL is not a 64-bit executable, so assume our userland is too.[m
-[32m+[m[32m#    echo "ERROR: $MY_TOOL only run on 64-bit linux"[m
-[32m+[m[32m#    exit 1[m
-[32m+[m[32m#  fi[m
-[32m+[m[32m#else[m
-   # Otherwise, choose 32-bit[m
-   MY_TOOL=`dirname $0`/${PREFIX32}-${PROGNAME}[m
-[31m-fi[m
-[32m+[m[32m#fi[m
- [m
- $MY_TOOL "$@"[m
+diff --git a/gcc-sdk/gcc b/gcc-sdk/gcc
+index eac1c47..f303645 100755
+--- a/gcc-sdk/gcc
++++ b/gcc-sdk/gcc
+@@ -20,21 +20,21 @@ suffix_m64=${options##* -m64 }    # suffix after the last -m64
+ len_m32=${#suffix_m32}            # length of suffix after the last -m32
+ len_m64=${#suffix_m64}            # length of suffix after the last -m64
+ 
+-if [ $len_m32 -ge $len_m64 ] ; then
+-  # Choose 64-bit if -m64 only, -m64 appears after -m32, or neither exist (-eq)
+-  MY_TOOL=`dirname $0`/${PREFIX64}-${PROGNAME}
+-  # Make sure host is running 64-bit OS.
+-  # Note that "uname -m" only show host CPU is capable of.  Use the following technique
+-  # from ndk/build/core/ndk-common.sh instead
+-  file -L "$SHELL" | grep -q "x86[_-]64"
+-  if [ $? != 0 ]; then
+-    # $SHELL is not a 64-bit executable, so assume our userland is too.
+-    echo "ERROR: $MY_TOOL only run on 64-bit linux"
+-    exit 1
+-  fi
+-else
++#if [ $len_m32 -ge $len_m64 ] ; then
++#  # Choose 64-bit if -m64 only, -m64 appears after -m32, or neither exist (-eq)
++#  MY_TOOL=`dirname $0`/${PREFIX64}-${PROGNAME}
++#  # Make sure host is running 64-bit OS.
++#  # Note that "uname -m" only show host CPU is capable of.  Use the following technique
++#  # from ndk/build/core/ndk-common.sh instead
++#  file -L "$SHELL" | grep -q "x86[_-]64"
++#  if [ $? != 0 ]; then
++#    # $SHELL is not a 64-bit executable, so assume our userland is too.
++#    echo "ERROR: $MY_TOOL only run on 64-bit linux"
++#    exit 1
++#  fi
++#else
+   # Otherwise, choose 32-bit
+   MY_TOOL=`dirname $0`/${PREFIX32}-${PROGNAME}
+-fi
++#fi
+ 
+ $MY_TOOL "$@"
+
+[1mproject sdk/[m
+diff --git a/emulator/opengl/shared/OpenglOsUtils/Android.mk b/emulator/opengl/shared/OpenglOsUtils/Android.mk
+index 3d9eda8..1e11c65 100644
+--- a/emulator/opengl/shared/OpenglOsUtils/Android.mk
++++ b/emulator/opengl/shared/OpenglOsUtils/Android.mk
+@@ -48,12 +48,12 @@ $(call emugl-begin-host-static-library,libOpenglOsUtils)
+     $(call emugl-export,LDLIBS,$(host_common_LDLIBS))
+ $(call emugl-end-module)
+ 
+-### 64-bit host library ####
+-$(call emugl-begin-host-static-library,lib64OpenglOsUtils)
+-    $(call emugl-export,C_INCLUDES,$(LOCAL_PATH))
+-    LOCAL_SRC_FILES = $(host_common_SRC_FILES)
+-    $(call emugl-export,LDLIBS,$(host_common_LDLIBS))
+-    $(call emugl-export,CFLAGS,-m64)
++#### 64-bit host library ####
++#$(call emugl-begin-host-static-library,lib64OpenglOsUtils)
++#    $(call emugl-export,C_INCLUDES,$(LOCAL_PATH))
++#    LOCAL_SRC_FILES = $(host_common_SRC_FILES)
++#    $(call emugl-export,LDLIBS,$(host_common_LDLIBS))
++#    $(call emugl-export,CFLAGS,-m64)
+ 
+ ifeq ($(HOST_OS),windows)
+ LOCAL_CC = /usr/bin/amd64-mingw32msvc-gcc 
 
 [1mproject system/core/[m
-[1mdiff --git a/libcutils/Android.mk b/libcutils/Android.mk[m
-[1mindex 5c227b6..7a00597 100644[m
-[1m--- a/libcutils/Android.mk[m
-[1m+++ b/libcutils/Android.mk[m
-[36m@@ -97,13 +97,13 @@[m [minclude $(BUILD_HOST_STATIC_LIBRARY)[m
- [m
- # Static library for host, 64-bit[m
- # ========================================================[m
-[31m-include $(CLEAR_VARS)[m
-[31m-LOCAL_MODULE := lib64cutils[m
-[31m-LOCAL_SRC_FILES := $(commonSources) $(commonHostSources) dlmalloc_stubs.c[m
-[31m-LOCAL_LDLIBS := -lpthread[m
-[31m-LOCAL_STATIC_LIBRARIES := lib64log[m
-[31m-LOCAL_CFLAGS += $(hostSmpFlag) -m64[m
-[31m-include $(BUILD_HOST_STATIC_LIBRARY)[m
-[32m+[m[32m#include $(CLEAR_VARS)[m
-[32m+[m[32m#LOCAL_MODULE := lib64cutils[m
-[32m+[m[32m#LOCAL_SRC_FILES := $(commonSources) $(commonHostSources) dlmalloc_stubs.c[m
-[32m+[m[32m#LOCAL_LDLIBS := -lpthread[m
-[32m+[m[32m#LOCAL_STATIC_LIBRARIES := lib64log[m
-[32m+[m[32m#LOCAL_CFLAGS += $(hostSmpFlag) -m64[m
-[32m+[m[32m#include $(BUILD_HOST_STATIC_LIBRARY)[m
- [m
- [m
- # Shared and static library for target[m
-[1mdiff --git a/liblog/Android.mk b/liblog/Android.mk[m
-[1mindex be5cec2..0f32d63 100644[m
-[1m--- a/liblog/Android.mk[m
-[1m+++ b/liblog/Android.mk[m
-[36m@@ -57,12 +57,12 @@[m [minclude $(BUILD_HOST_SHARED_LIBRARY)[m
- [m
- # Static library for host, 64-bit[m
- # ========================================================[m
-[31m-include $(CLEAR_VARS)[m
-[31m-LOCAL_MODULE := lib64log[m
-[31m-LOCAL_SRC_FILES := $(liblog_host_sources)[m
-[31m-LOCAL_LDLIBS := -lpthread[m
-[31m-LOCAL_CFLAGS := -DFAKE_LOG_DEVICE=1 -m64[m
-[31m-include $(BUILD_HOST_STATIC_LIBRARY)[m
-[32m+[m[32m#include $(CLEAR_VARS)[m
-[32m+[m[32m#LOCAL_MODULE := lib64log[m
-[32m+[m[32m#LOCAL_SRC_FILES := $(liblog_host_sources)[m
-[32m+[m[32m#LOCAL_LDLIBS := -lpthread[m
-[32m+[m[32m#LOCAL_CFLAGS := -DFAKE_LOG_DEVICE=1 -m64[m
-[32m+[m[32m#include $(BUILD_HOST_STATIC_LIBRARY)[m
- [m
- [m
- # Shared and static library for target[m
+diff --git a/libcutils/Android.mk b/libcutils/Android.mk
+index c8d8e92..4127e7c 100644
+--- a/libcutils/Android.mk
++++ b/libcutils/Android.mk
+@@ -97,20 +97,30 @@ include $(BUILD_HOST_STATIC_LIBRARY)
+ 
+ # Static library for host, 64-bit
+ # ========================================================
+-include $(CLEAR_VARS)
+-LOCAL_MODULE := lib64cutils
+-LOCAL_SRC_FILES := $(commonSources) $(commonHostSources) dlmalloc_stubs.c
+-LOCAL_LDLIBS := -lpthread
+-LOCAL_STATIC_LIBRARIES := lib64log
+-ifeq ($(HOST_OS),linux)
+-LOCAL_CFLAGS += $(hostSmpFlag) -m64 -Dlinux
+-endif
+-ifeq ($(HOST_OS),windows)
+-LOCAL_CC = /usr/bin/amd64-mingw32msvc-gcc 
+-LOCAL_CXX = /usr/bin/amd64-mingw32msvc-g++
+-LOCAL_CFLAGS += $(hostSmpFlag) -m64
+-endif
+-include $(BUILD_HOST_STATIC_LIBRARY)
++#<<<<<<< Updated upstream
++#include $(CLEAR_VARS)
++#LOCAL_MODULE := lib64cutils
++#LOCAL_SRC_FILES := $(commonSources) $(commonHostSources) dlmalloc_stubs.c
++#LOCAL_LDLIBS := -lpthread
++#LOCAL_STATIC_LIBRARIES := lib64log
++#ifeq ($(HOST_OS),linux)
++#LOCAL_CFLAGS += $(hostSmpFlag) -m64 -Dlinux
++#endif
++#ifeq ($(HOST_OS),windows)
++#LOCAL_CC = /usr/bin/amd64-mingw32msvc-gcc 
++#LOCAL_CXX = /usr/bin/amd64-mingw32msvc-g++
++#LOCAL_CFLAGS += $(hostSmpFlag) -m64
++#endif
++#include $(BUILD_HOST_STATIC_LIBRARY)
++#=======
++#include $(CLEAR_VARS)
++#LOCAL_MODULE := lib64cutils
++#LOCAL_SRC_FILES := $(commonSources) $(commonHostSources) dlmalloc_stubs.c
++#LOCAL_LDLIBS := -lpthread
++#LOCAL_STATIC_LIBRARIES := lib64log
++#LOCAL_CFLAGS += $(hostSmpFlag) -m64
++#include $(BUILD_HOST_STATIC_LIBRARY)
++#>>>>>>> Stashed changes
+ 
+ 
+ # Shared and static library for target
+diff --git a/liblog/Android.mk b/liblog/Android.mk
+index 6ffde0e..1013e81 100644
+--- a/liblog/Android.mk
++++ b/liblog/Android.mk
+@@ -57,16 +57,25 @@ include $(BUILD_HOST_SHARED_LIBRARY)
+ 
+ # Static library for host, 64-bit
+ # ========================================================
+-include $(CLEAR_VARS)
+-LOCAL_MODULE := lib64log
+-LOCAL_SRC_FILES := $(liblog_host_sources)
+-LOCAL_LDLIBS := -lpthread
+-LOCAL_CFLAGS := -DFAKE_LOG_DEVICE=1 -m64
+-ifeq ($(HOST_OS),windows)
+-LOCAL_CC = /usr/bin/amd64-mingw32msvc-gcc 
+-LOCAL_CXX = /usr/bin/amd64-mingw32msvc-g++
+-endif
+-include $(BUILD_HOST_STATIC_LIBRARY)
++#<<<<<<< Updated upstream
++#include $(CLEAR_VARS)
++#LOCAL_MODULE := lib64log
++#LOCAL_SRC_FILES := $(liblog_host_sources)
++#LOCAL_LDLIBS := -lpthread
++#LOCAL_CFLAGS := -DFAKE_LOG_DEVICE=1 -m64
++#ifeq ($(HOST_OS),windows)
++#LOCAL_CC = /usr/bin/amd64-mingw32msvc-gcc 
++#LOCAL_CXX = /usr/bin/amd64-mingw32msvc-g++
++#endif
++#include $(BUILD_HOST_STATIC_LIBRARY)
++#=======
++#include $(CLEAR_VARS)
++#LOCAL_MODULE := lib64log
++#LOCAL_SRC_FILES := $(liblog_host_sources)
++#LOCAL_LDLIBS := -lpthread
++#LOCAL_CFLAGS := -DFAKE_LOG_DEVICE=1 -m64
++#include $(BUILD_HOST_STATIC_LIBRARY)
++#>>>>>>> Stashed changes
+ 
+ 
+ # Shared and static library for target
