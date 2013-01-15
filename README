@@ -1,6 +1,16 @@
 Simple fake device tree for AOSP.
 
-This code enable a device named "hal9000".
+This code enable a device named "hal9000". In order to build
+this device, add to your .repo/local_manifest.xml the line
+
+    <project
+      name="gipi/android_device_gipi_hal9000"
+      path="device/gipi/hal9000"
+      remote="github"
+      revision="master"
+      />
+
+and select from lunch menu the entry full_hal9000.
 
 NOTE: the kernel is a fake one, this is a fake device
 used only to test the build process involved in the AOSP.
