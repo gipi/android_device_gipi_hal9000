@@ -12,7 +12,12 @@ this device, add a manifest in .repo/local_manifests/ with the lines
       />
      </manifest>
 
-and select from lunch menu the entry full_hal9000.
+and select from lunch menu the entry full_hal9000. If you want a minimal
+system set
+
+    BUILD_TINY_ANDROID := true
+    
+in full_hal9000.mk.
 
 NOTE: the kernel is a fake one, this is a fake device
 used only to test the build process involved in the AOSP.
