@@ -26,3 +26,15 @@ in full_hal9000.mk.
 
 NOTE: the kernel is a fake one, this is a fake device
 used only to test the build process involved in the AOSP.
+
+If like me you have a 32 bit system you can add a local manifest
+like the following
+
+
+  <remove-project name="platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.6"/>
+  <project
+    path="prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.6"
+    name="yath/android_prebuilts_gcc_linux-x86-32_arm_arm-linux-androideabi-4.6"
+    remote="github"
+    revision="jellybean"
+    />
