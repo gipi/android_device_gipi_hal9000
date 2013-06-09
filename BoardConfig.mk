@@ -14,7 +14,8 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 251658240
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 31399067648
 BOARD_FLASH_BLOCK_SIZE := 4096
 
-TARGET_RECOVERY_UI_LIB := librecovery_ui_stingray
+# defined in bootable/recovery/Android.mk
+#TARGET_RECOVERY_UI_LIB := librecovery_ui_stingray
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 
 BOARD_KERNEL_CMDLINE := androidboot.carrier=wifi-only product_type=w
