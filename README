@@ -1,4 +1,5 @@
-Simple fake device tree for AOSP.
+Simple fake device tree for AOSP. For now use is a simple
+duplicate of the platform used with the emulator.
 
 This code enable a device named "hal9000". In order to build
 this device, add a manifest in .repo/local_manifests/ with the lines
@@ -24,9 +25,6 @@ system set
     
 in full_hal9000.mk.
 
-NOTE: the kernel is a fake one, this is a fake device
-used only to test the build process involved in the AOSP.
-
 If like me you have a 32 bit system you can add a local manifest
 like the following
 
@@ -38,3 +36,20 @@ like the following
     remote="github"
     revision="jellybean"
     />
+
+It's possible to build the kernel adding the following line
+to a local manifest
+
+    <project
+        name="kernel/goldfish"
+        path="kernel/"
+        remote="aosp"
+        revision="android-goldfish-3.4"
+    />
+
+and then
+
+ $ export ARCH=arm
+ $ export SUBARCH=arm
+ $ export CROSS_COMPILE=arm-linux-androideabi-
+ $ make goldfish_armv7_defconfig
