@@ -55,3 +55,7 @@ and then
  $ export SUBARCH=arm
  $ export CROSS_COMPILE=arm-linux-androideabi-
  $ make goldfish_armv7_defconfig
+
+If you want to debug the emulator launch it as follow
+
+    $ emulator -show-kernel -verbose -logcat "*:*"
