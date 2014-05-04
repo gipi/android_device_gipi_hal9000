@@ -14,11 +14,13 @@
 # limitations under the License.
 #
 
-# Use the non-open-source parts, if they're present
--include vendor/gipi/hal9000/BoardConfigVendor.mk
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+LOCAL_KERNEL := device/gipi/hal9000-kernel/kernel
+else
+LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+endif
 
-TARGET_ARCH := arm
-TARGET_ARCH_VARIANT := armv7-a-neon
-TARGET_CPU_ABI := armeabi-v7a
-TARGET_CPU_ABI2 := armeabi
-TARGET_CPU_VARIANT := cortex-a9
+PRODUCT_COPY_FILES := \
+	$(LOCAL_KERNEL):kernel
+
+$(call inherit-product-if-exists, vendor/gipi/hal9000/device-vendor.mk)
