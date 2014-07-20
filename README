@@ -59,3 +59,10 @@ and then
 If you want to debug the emulator launch it as follow
 
     $ emulator -show-kernel -verbose -logcat "*:*"
+
+Link
+----
+
+ - http://events.linuxfoundation.org/images/abs2013_rmunitz.pdf
+ - http://www.kpbird.com/2012/11/in-depth-android-boot-sequence-process.html
+ - http://community.arm.com/groups/android-community/blog/2013/09/18/from-zero-to-boot-porting-android-to-your-arm-platform
