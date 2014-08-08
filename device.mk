@@ -15,7 +15,7 @@
 #
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-LOCAL_KERNEL := device/gipi/hal9000-kernel/kernel
+LOCAL_KERNEL := device/gipi/hal9000-kernel/arch/arm/boot/zImage
 else
 LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
