@@ -25,7 +25,13 @@ system set
 
     BUILD_TINY_ANDROID := true
     
-in full_hal9000.mk.
+in full_hal9000.mk. The following are the steps to compile
+
+    $ export USE_CCACHE=1
+    $ export CCACHE_DIR=$PWD/.ccache
+    $ source build/envsetup.sh
+    $ lunch 18
+    $ make -j8
 
 If like me you have a 32 bit system you can add a local manifest
 like the following
