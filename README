@@ -68,6 +68,10 @@ If you want to debug the emulator launch it as follow
 
 In order to log more verbosely the init process, set ``loglevel`` to 7 in ``init.rc``.
 
+It's possible to build the SDK using
+
+    $ lunch sdk-eng && make sdk
+
 Link
 ----
 
