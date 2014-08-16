@@ -1,4 +1,5 @@
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
+# full.mk also include emulator.mk
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full.mk)
 $(call inherit-product, device/gipi/hal9000/device.mk)
 
 # from build/core/main.mk
