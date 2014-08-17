@@ -64,7 +64,7 @@ and then
 
 If you want to debug the emulator launch it as follow
 
-    $ emulator -show-kernel -verbose -logcat "*:*"
+    $ emulator -show-kernel -verbose -logcat "*:*" -debug all
 
 In order to log more verbosely the init process, set ``loglevel`` to 7 in ``init.rc``.
 
