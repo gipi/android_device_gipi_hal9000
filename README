@@ -70,7 +70,10 @@ In order to log more verbosely the init process, set ``loglevel`` to 7 in ``init
 
 It's possible to build the SDK using
 
+    $ repo init -g all
     $ lunch sdk-eng && make sdk
+    $ make PRODUCT-hal9000_sdk_addon-sdk_addon
+    $ make -j8 sdk sdk_repo
 
 Link
 ----

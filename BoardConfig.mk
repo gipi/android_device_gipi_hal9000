@@ -23,6 +23,14 @@ TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := cortex-a9
 
+# Build OpenGLES emulation guest and host libraries
+BUILD_EMULATOR_OPENGL := true
+
+# Build and enable the OpenGL ES View renderer. When running on the emulator,
+# the GLES renderer disables itself if host GL acceleration isn't available.
+USE_OPENGL_RENDERER := true
+
+
 # emulator uses ext4
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 576716800
