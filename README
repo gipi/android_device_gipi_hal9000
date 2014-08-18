@@ -37,6 +37,14 @@ in full_hal9000.mk. The following are the steps to compile
     $ lunch 18
     $ make -j8
 
+In some cases the emulator is not build, you can force the building with
+
+    $ external/qemu/android-rebuild.sh
+
+or
+
+    $ m -j8 emulator
+
 If like me you have a 32 bit system you can add a local manifest
 like the following
 
