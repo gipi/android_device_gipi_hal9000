@@ -69,10 +69,10 @@ to a local manifest
 
 and then
 
- $ export ARCH=arm
- $ export SUBARCH=arm
- $ export CROSS_COMPILE=arm-linux-androideabi-
- $ make goldfish_armv7_defconfig
+    $ export ARCH=arm
+    $ export SUBARCH=arm
+    $ export CROSS_COMPILE=arm-linux-androideabi-
+    $ make goldfish_armv7_defconfig
 
 If you want to debug the emulator launch it as follow
 
