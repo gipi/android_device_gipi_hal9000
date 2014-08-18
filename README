@@ -1,7 +1,11 @@
 Simple fake device tree for AOSP. For now use is a simple
 duplicate of the platform used with the emulator.
 
- ===== Tested on android-4.2.2_r1 tag =====
+Tested on
+
+ - android-4.2.2_r1
+ - android-4.4.4_r1
+ - android-4.4.4_r2
 
 This code enable a device named "hal9000". In order to build
 this device, add a manifest in .repo/local_manifests/ with the lines
