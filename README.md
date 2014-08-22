@@ -1,5 +1,6 @@
-Simple fake device tree for AOSP. For now use is a simple
-duplicate of the platform used with the emulator.
+Simple fake device tree for AOSP. For now is a simple
+duplicate of the platform used with the emulator with a simple
+customized launcher.
 
 Tested on
 

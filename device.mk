@@ -23,4 +23,7 @@ endif
 PRODUCT_COPY_FILES := \
 	$(LOCAL_KERNEL):kernel
 
+PRODUCT_PACKAGES += \
+	Hal9000Home
+
 $(call inherit-product-if-exists, vendor/gipi/hal9000/device-vendor.mk)
